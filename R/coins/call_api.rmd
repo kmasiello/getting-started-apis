@@ -1,0 +1,54 @@
+---
+title: "call_api"
+author: "Katie Masiello"
+date: "1/2/2021"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+```{r}
+library(httr)
+library(magrittr)
+```
+
+See the published API at: <https://colorado.rstudio.com/rsc/coin_api/>
+
+## Endpoint 1: single coin toss
+
+open this link in a browser tab: <https://colorado.rstudio.com/rsc/coin_api/coin_toss>
+
+refresh the browser and see the results
+
+or pull it into code with the `httr` package
+```{r}
+
+base_url <- "https://colorado.rstudio.com/rsc/coin_api/"
+
+endpoint <- "coin_toss"
+
+query_url <- modify_url(url = paste0(base_url, endpoint)) 
+
+
+(response <- GET(query_url) %>% 
+   content(as = "text") %>% jsonlite::fromJSON())
+
+```
+
+## Endpoint 2: multi coin toss
+
+Similarly, use `httr` to call the multi toss endpoint
+
+```{r}
+
+base_url <- 
+ "https://colorado.rstudio.com/rsc/coin_api/"
+
+endpoint <- "multi_toss"
+
+params <- list(n = 1000)
+
+query_url <- modify_url(url = paste0(base_url, endpoint), query = params)
+
+(response <- GET(query_url) %>% 
+   content(as = "text") %>% jsonlite::fromJSON())
+```

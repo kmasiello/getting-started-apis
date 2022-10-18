@@ -1,0 +1,6 @@
+/.quarto/
+.Rproj.user
+*.key
+.Rhistory
+.Rprofile
+rsconnect/
