@@ -1,0 +1,837 @@
+---
+format: 
+  revealjs:
+    theme: 
+      - "theme/my-theme.scss"
+    chalkboard: true
+    slide-number: c/t
+    logo: "https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-Flat.png"
+    footer: "[https://kmasiello.github.io/getting-started-apis](https://kmasiello.github.io/getting-started-apis)"
+    code-copy: true
+    center-title-slide: false
+    # include-in-header: heading-meta.html
+    code-link: true
+    code-overflow: wrap
+    highlight-style: a11y
+    height: 1080
+    width: 1920
+    # height: 900
+    # width: 1440
+execute: 
+  eval: true
+  echo: true
+  cache: true
+---
+
+<h1>Getting Started With APIs</h1>
+
+<h2>[*the ELI5 edition, featuring* `plumber`]{.altred}</h2>
+
+<hr>
+
+<h4>2022-10-21</h4>
+
+<br>
+
+<h3>Katie Masiello, Solutions Engineer at</h3>
+
+![](https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-Flat.png){.absolute top="425" left="1072" height="95"}
+
+<br>
+
+<h3>`r fontawesome::fa("github", "black")` [github.com/kmasiello/getting-started-apis](https://github.com/kmasiello/getting-started-apis)</h3>
+
+![](images/plumber.png){.absolute top="525" left="1400" width="500"}
+
+## What is an API?
+
+Wikipedia says:
+
+
+> An application programming interface (API) is a way for two or more computer programs to communicate with each other.
+
+. . .
+
+<br>
+🤔 *I'm not a computer... so what's that got to do with me?*
+
+. . .
+
+Katie says:
+
+. . .
+
+> An API is just a fancy way of accessing a function, from any system, and you don't have to access that function using the same language it was written in.
+
+. . .
+
+Katie's corollary:
+
+> If you can write a function, you can write an API.
+
+## Systems as Black Boxes
+
+![](images/black_boxes.png){fig-alt="Two black box systems. The left system asks for fleet data, the right system responds with data." fig-align="center"}
+
+. . .
+
+::: columns
+::: {.column width="50%"}
+### What's inside my system?
+
+. . .
+
+-   R?
+-   Python?
+-   Excel?
+-   Tableau?
+:::
+
+::: {.column width="50%"}
+### What's inside the other system?
+
+. . .
+
+-   JavaScript?
+-   Python?
+-   R?
+-   Scratch? ;)
+:::
+:::
+
+## Systems as Black Boxes
+
+![](images/black_boxes.png){fig-alt="Two black box systems. The left system asks for data, the right system responds with data." fig-align="center"}
+
+::: columns
+::: {.column width="50%"}
+### What's inside my system?
+:::
+
+::: {.column width="50%"}
+### What's inside the other system?
+:::
+:::
+
+<br>
+
+::: {.fragment .fade-up}
+::: {style="text-align: center;"}
+<h2>🎉 <br>It doesn't matter as long as we agree on a standard way to communicate between systems!</h2>
+:::
+:::
+
+## Systems as Black Boxes
+
+![](images/restful.png){fig-alt="Two black box systems. The left system asks for data, the right system responds with data." fig-align="center"}
+
+If the other system's external interfaces are exposed as "API endpoints," and if my system can formulate a REST-based API call, we can communicate. 
+
+## Let's See it in Action 🌧️
+
+How's the weather at Paine Field?
+
+[https://api.open-meteo.com/v1/forecast?latitude=47.9&longitude=-122.3&hourly=temperature_2m, rain,windspeed_10m&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch& timezone=America%2FLos_Angeles](https://api.open-meteo.com/v1/forecast?latitude=47.9&longitude=-122.3&hourly=temperature_2m,rain,windspeed_10m&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&timezone=America%2FLos_Angeles)
+
+```{r}
+library(httr)
+httr::GET("https://api.open-meteo.com/v1/forecast?latitude=47.9&longitude=-122.3&hourly=temperature_2m,rain,windspeed_10m&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&timezone=America%2FLos_Angeles") |> 
+  content(as = "text") |> 
+  jsonlite::fromJSON()
+```
+
+## Think of APIs as a way to access functions
+
+General form of an API:
+
+    http://hostname/api_endpoint/?parameter=value
+
+Example function:
+
+```{r}
+my_function <- function(argument) {
+  some_kind_of_operation(argument)
+}
+```
+
+As an API:
+
+    http://hostname/my_function/?argument=value
+
+## Parts of an API
+
+-   **Host:**
+    -   [`http://api.hostname.io/`]{style="background-color:#f7f896"}
+-   **Endpoint:**
+    -   Resource location (think of this as the function)
+    -   `http://api.hostname.io/`[`endpoint`]{style="background-color:#9ef8f8"}
+-   **Parameters (optional):**
+    -   Address varying parts of a request (think of these as the arguments)
+    -   `http://api.hostname.io/endpoint/`[`?param1=valueA&param2=valueB`]{style="background-color:#f9ca9a"}
+-   **Headers & body (optional):**
+    -   (not in URL) Associated (meta)data
+
+The weather API:
+
+[`https://api.open-meteo.com/`]{style="background-color:#f7f896"}[`v1/forecast`]{style="background-color:#9ef8f8"}[`?latitude=47.9&longitude=-122.3& hourly=temperature_2m,rain,windspeed_10m&temperature_unit=fahrenheit& windspeed_unit=mph&precipitation_unit=inch&timezone=America%2FLos_Angeles`]{style="background-color:#f9ca9a"}
+
+## API Requests
+
+-   Each API endpoint has a different **method**
+
+-   GET
+
+    -   Used to *retrieve* data. Parameters only. No body.
+    -   Everything is in the URL.
+    -   Don't send sensitive data!
+
+-   POST
+
+    -   Used for sending data (files or text).
+    -   Creating or modifying something.
+
+-   Other methods:
+
+    -   PUT
+    -   DELETE (yikes!) ☠️
+    -   HEAD
+    -   and more
+
+## API Reponses
+
+-   Default response from an API is JSON object
+
+    -   Human-readable (to an extent)
+    -   Familiar syntax for working with in R, Python
+
+-   Many frameworks support additional response types
+
+    -   text, csv
+    -   images
+    -   htmlwidgets
+    -   specific file types (e.g., RDS, feather, parquet)
+    -   and more
+
+## Why Should [*You*]{.darkyellow} Build an API?
+
+[What's in your data science toolbox right now?]{.altred}
+
+-   Reports
+
+-   Presentations
+
+-   Spreadsheets
+
+-   Interactive Dashboards
+
+[*all these tools are limited to **end user consumption***]{.fragment}
+
+[<br> 😄 "I can enable an analytics pipeline with APIs."]{.fragment}
+
+## Why Should [*You*]{.darkyellow} Build an API?
+
+[How do you make your analytics available to other projects/teams/people?]{.altred}
+
+-   Make an R or Python package
+
+-   Share your code
+
+[*this is fine a long as you're all using the **same language***]{.fragment}
+
+[<br> 😭 "Your model is great, we're going to hand it over to this other team to rebuild it in JavaScript."]{.fragment}
+
+[<br> 😄 "I will expose my analytics as an API so anyone can use it."]{.fragment}
+
+[<br> 😄 "Bonus: If I pull my model out of my Shiny app, I can make my app lighter weight and have more flexibility around model management."]{.fragment}
+
+## Okay, but how?
+
+::: columns
+::: {.column width="50%"}
+
+#### API frameworks
+
+-   R --- plumber
+
+-   Python --- Flask, FastAPI
+
+-   JavaScript --- Node.js, Express.js
+
+:::
+
+::: {.column width="50%"}
+
+#### Deployment options
+
+-   RStudio Connect
+
+-   Digital Ocean
+
+-   Docker
+
+:::
+:::
+
+## Our Chosen Tools for Today
+
+::: columns
+::: {.column width="50%"}
+#### API frameworks
+
+-   [R --- plumber]{.darkyellow}
+
+-   [Python --- Flask, FastAPI]{style="color:silver;"}
+
+-   [JavaScript --- Node.js, Express.js]{style="color:silver;"}
+:::
+
+::: {.column width="50%"}
+#### Deployment options
+
+-   [RStudio Connect]{.darkyellow}
+
+-   [Digital Ocean]{style="color:silver;"}
+
+-   [Docker]{style="color:silver;"}
+:::
+:::
+
+## Let's Get to Work! {.center .bigger}
+
+------------------------------------------------------------------------
+
+::: left-column-impact
+<h7>[4]{.darkyellow style="font-size: 275px;"} <br>steps to making a plumber API</h7>
+:::
+
+::: right-column-impact
+<br><img src="images/plumber.png" style="vertical-align:middle" height="350"/><br>
+
+### 1. Make a function
+
+### 2. Add `plumber` decorations
+
+### 3. ⚠️Save as **"`plumber.r`"**
+
+### 4. Publish
+:::
+
+## Start Simple: A coin toss example
+
+**Function 1: coin toss**
+
+```{r}
+#Function 1: toss once and give me a heads or tails output 
+coin_toss <- function() {
+  sample(c("heads", "tails"), 1, 
+         prob = c(0.5, 0.5), replace = TRUE)
+}
+coin_toss()
+```
+
+**Function 2: multi toss**
+
+```{r}
+#Function 2: toss multiple times and summarize output
+multi_toss <- function(n) {
+  table(sample(c("heads", "tails"), n, 
+               prob = c(0.5, 0.5), replace = TRUE)) |> 
+    as.data.frame()
+}
+multi_toss(500)
+```
+
+::: {.fragment .fade-up}
+::: columns
+::: {.column width="40%"}
+<br><br>
+
+### Get Ready to Decorate!
+:::
+
+::: {.column width="60%"}
+![](images/decorate.gif)
+:::
+:::
+:::
+
+## Sneak Peek: The Finished API
+
+Notice special plumber comments (decorations) with `#*`
+
+```{r}
+#| class-source: longer_code_block
+#| classes: longer_code_block
+#| eval: false
+#| code-line-numbers: "|1,3,5-6,13-15"
+library(plumber)
+
+#* @apiTitle Coin Toss API
+
+#* Toss a coin once and give the result
+#* @get /coin_toss
+
+function() {
+  sample(c("heads", "tails"), 1, 
+         prob = c(0.5, 0.5), replace = TRUE)
+}
+
+#* Toss a coin multiple times and summarize output
+#* @param n the number of times to toss the coin
+#* @get /multi_toss
+
+function(n) {
+  as.data.frame(
+    table(sample(c("heads", "tails"), n, 
+                 prob = c(0.5, 0.5), replace = TRUE)))
+  }
+```
+
+## Make an API --- Add a Title
+
+**Noted with `@apiTitle`**
+
+```{r}
+#| class-source: longer_code_block
+#| classes: longer_code_block
+#| eval: false
+#| code-line-numbers: "3"
+library(plumber)
+
+#* @apiTitle Coin Toss API
+
+#* Toss a coin once and give the result
+#* @get /coin_toss
+
+function() {
+  sample(c("heads", "tails"), 1, 
+         prob = c(0.5, 0.5), replace = TRUE)
+  }
+
+#* Toss a coin multiple times and summarize output
+#* @param n the number of times to toss the coin
+#* @get /multi_toss
+
+function(n) {
+  as.data.frame(
+    table(sample(c("heads", "tails"), n, 
+                 prob = c(0.5, 0.5), replace = TRUE)))
+  }
+```
+
+## Make an API --- Add Endpoint Descriptions
+
+**What does each endpoint (think: function) do?**
+
+```{r}
+#| class-source: longer_code_block
+#| classes: longer_code_block
+#| eval: false
+#| code-line-numbers: "5,13"
+library(plumber)
+
+#* @apiTitle Coin Toss API
+
+#* Toss a coin once and give the result
+#* @get /coin_toss
+
+function() {
+  sample(c("heads", "tails"), 1, 
+         prob = c(0.5, 0.5), replace = TRUE)
+}
+
+#* Toss a coin multiple times and summarize output
+#* @param n the number of times to toss the coin
+#* @get /multi_toss
+
+function(n) {
+  as.data.frame(
+    table(sample(c("heads", "tails"), n, 
+                 prob = c(0.5, 0.5), replace = TRUE)))
+}
+```
+
+## Make an API --- Add Endpoint Parameters
+
+**Noted with `@param`; these are your function arguments** (optional)
+
+```{r}
+#| class-source: longer_code_block
+#| classes: longer_code_block
+#| eval: false
+#| code-line-numbers: "14"
+library(plumber)
+
+#* @apiTitle Coin Toss API
+
+#* Toss a coin once and give the result
+#* @get /coin_toss
+
+function() {
+  sample(c("heads", "tails"), 1, 
+         prob = c(0.5, 0.5), replace = TRUE)
+}
+
+#* Toss a coin multiple times and summarize output
+#* @param n the number of times to toss the coin
+#* @get /multi_toss
+
+function(n) {
+  as.data.frame(
+    table(sample(c("heads", "tails"), n, 
+                 prob = c(0.5, 0.5), replace = TRUE)))
+}
+```
+
+## Make an API --- Specify Endpoint and Method
+
+**Noted with `@get`, `@post`, etc.**
+
+```{r}
+#| class-source: longer_code_block
+#| classes: longer_code_block
+#| eval: false
+#| code-line-numbers: "6,15"
+library(plumber)
+
+#* @apiTitle Coin Toss API
+
+#* Toss a coin once and give the result
+#* @get /coin_toss
+
+function() {
+  sample(c("heads", "tails"), 1, 
+         prob = c(0.5, 0.5), replace = TRUE)
+}
+
+#* Toss a coin multiple times and summarize output
+#* @param n the number of times to toss the coin
+#* @get /multi_toss
+
+function(n) {
+  as.data.frame(
+    table(sample(c("heads", "tails"), n, 
+                 prob = c(0.5, 0.5), replace = TRUE)))
+}
+```
+
+::: {.fragment .fade-up}
+::: {style="text-align: center;"}
+<br><h2>🎉<br>*et voilà!*</h2>
+:::
+:::
+
+## Short detour: The Swagger Interface
+
+**Plumber (and FastAPI) bake in a Swagger UI for interacting with your API**
+
+::: panel-tabset
+### Static image
+
+![](images/swagger.png){fig-align="center" height="800px"}
+
+### Demo
+
+![](images/swagger.gif){fig-align="center" height="800px"}
+:::
+
+## Publish the API
+
+Deploy to RStudio Connect [using your preferred method](https://solutions.rstudio.com/data-science-admin/deploy/) (push button deployment, git-backed deployment, or programmatic).
+
+::: {style="text-align: center;"}
+[**https://colorado.rstudio.com/rsc/coin_api/**](https://colorado.rstudio.com/rsc/coin_api/){.uri}
+
+<a href="https://colorado.rstudio.com/rsc/coin_api/" target="_blank"><img src="images/published.png" alt="Image of API deployed on Connect" style="height:700px;"/></a>
+:::
+
+## Are you warmed up? {.center .bigger}
+
+## How might you use an API?
+
+-   Standardize your data munging and other business logic
+
+-   Pull the heavy lifting out of your Shiny app and into an API
+
+-   Query your model from Slack, Tableau, other web apps, ...
+
+## Example: Standardize Data Processing
+
+::: panel-tabset
+### Data Formatting
+
+Use case: You have a common source of fleet data and perform the same routine data cleaning and formatting as part of routine analysis.
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| class-source: longest_code_block
+#| classes: longest_code_block
+#| echo: true
+#| eval: false
+library(nycflights13)
+library(dplyr)
+
+fleet_lookup <- function(carrier){
+
+  carrier_tbl <- flights %>%
+    select(carrier, tailnum) %>%
+    distinct()
+
+  planes %>%
+    mutate(manufacturer=recode(manufacturer, "AIRBUS INDUSTRIE"="AIRBUS",
+                    "MCDONNELL DOUGLAS CORPORATION" = "MCDONNELL DOUGLAS",
+                    "MCDONNELL DOUGLAS AIRCRAFT CO" = "MCDONNELL DOUGLAS")) %>%
+    filter(engine %in% c("Turbo-jet", "Turbo-fan")) %>%
+    left_join(carrier_tbl) %>%
+    distinct() %>%
+    filter( carrier == {{ carrier }}) %>%
+    group_by(manufacturer, model) %>%
+    tally() %>%
+    arrange(desc(n))
+
+}
+
+fleet_lookup("UA")
+
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| eval: true
+library(nycflights13)
+library(dplyr)
+
+fleet_lookup <- function(carrier){
+
+  carrier_tbl <- flights %>%
+    select(carrier, tailnum) %>%
+    distinct()
+
+  planes %>%
+    mutate(manufacturer=recode(manufacturer, "AIRBUS INDUSTRIE"="AIRBUS",
+                    "MCDONNELL DOUGLAS CORPORATION" = "MCDONNELL DOUGLAS",
+                    "MCDONNELL DOUGLAS AIRCRAFT CO" = "MCDONNELL DOUGLAS")) %>%
+    filter(engine %in% c("Turbo-jet", "Turbo-fan")) %>%
+    left_join(carrier_tbl) %>%
+    distinct() %>%
+    filter( carrier == {{ carrier }}) %>%
+    group_by(manufacturer, model) %>%
+    tally() %>%
+    arrange(desc(n))
+
+}
+
+fleet_lookup("UA")
+
+```
+:::
+:::
+
+### Plot Fleet Data
+
+Use case: Your data visualization would be valuable to import into multiple reports.
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: true
+#| class-source: longest_code_block
+#| classes: longest_code_block
+#| output-location: column
+#| eval: false
+library(nycflights13)
+library(dplyr)
+library(ggplot2)
+library(ggiraph)
+
+fleet_plot <- function(carrier){
+p <- fleet_lookup({{ carrier }}) %>%
+  ggplot(aes(x=model, y=n, fill = manufacturer)) +
+  geom_bar_interactive(stat="identity", aes(tooltip = n, data_id = n)) +
+  theme_minimal() +
+  theme(legend.position="bottom") +
+  scale_fill_brewer(palette="Dark2") +
+  labs(title=paste({{ carrier }},"fleet data from `nycflights13`"),
+       subtitle="Turbo-fan and Turbo-props only") +
+  coord_flip()
+girafe(code = print(p))
+}
+
+fleet_plot("UA")
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| class-source: longer_code_block
+#| classes: longer_code_block
+#| eval: true
+library(nycflights13)
+library(dplyr)
+library(ggplot2)
+library(ggiraph)
+
+fleet_plot <- function(carrier){
+p <- fleet_lookup({{ carrier }}) %>%
+  ggplot(aes(x=model, y=n, fill = manufacturer)) +
+  geom_bar_interactive(stat="identity", aes(tooltip = n, data_id = n)) +
+  theme_minimal() +
+  theme(legend.position="bottom") +
+  scale_fill_brewer(palette="Dark2") +
+  labs(title=paste({{ carrier }},"fleet data from `nycflights13`"),
+       subtitle="Turbo-fan and Turbo-props only") +
+  coord_flip()
+girafe(code = print(p))
+}
+
+fleet_plot("UA")
+```
+:::
+:::
+:::
+
+## Make an API
+
+```{r}
+#| echo: true
+#| eval: false
+#| classes: longest_code_block
+#| class-source: longest_code_block
+#| code-line-numbers: "|1|7|28-33|42-45"
+library(plumber)
+library(nycflights13)
+library(dplyr)
+library(ggplot2)
+library(ggiraph)
+
+# Look 👀, I can keep my original function definition as is and I'll just call it below when defining the endpoint.
+fleet_lookup <- function(carrier){
+    
+    carrier_tbl <- flights %>%
+        select(carrier, tailnum) %>%
+        distinct()
+    
+    planes %>%
+        mutate(manufacturer=recode(manufacturer, "AIRBUS INDUSTRIE"="AIRBUS",
+                                   "MCDONNELL DOUGLAS CORPORATION" = "MCDONNELL DOUGLAS",
+                                   "MCDONNELL DOUGLAS AIRCRAFT CO" = "MCDONNELL DOUGLAS")) %>%
+        filter(engine %in% c("Turbo-jet", "Turbo-fan")) %>%
+        left_join(carrier_tbl) %>%
+        distinct() %>%
+        filter( carrier == {{ carrier }}) %>%
+        group_by(manufacturer, model) %>%
+        tally() %>%
+        arrange(desc(n))
+    
+}
+
+#* @apiTitle Fleet Lookup
+#* @apiDescription Plumber example looking up fleet data from `nycflights13`
+
+#* Look up fleet data from the `nycflights13` dataset
+#* @param carrier two-letter carrier code
+#* @get /fleet_lookup
+
+function(carrier){
+    
+    fleet_lookup({{carrier}})
+    
+}
+
+
+#* Plot fleet data
+#* @serializer htmlwidget
+#* @param carrier two-letter carrier code
+#* @get /plot
+function(carrier){
+    p <- fleet_lookup({{ carrier }}) %>% 
+        ggplot(aes(x=model, y=n, fill = manufacturer)) + 
+        geom_bar_interactive(stat="identity", aes(tooltip = n, data_id = n)) + 
+        theme_minimal() +
+        theme(legend.position="bottom") +
+        scale_fill_brewer(palette="Dark2") +
+        labs(title=paste({{ carrier }},"fleet data from `nycflights13`"),
+             subtitle="Turbo-fan and Turbo-props only") +
+        coord_flip() 
+    girafe(code = print(p))
+}
+
+```
+
+::: {.fragment .fade-up}
+::: {style="text-align: center;"}
+<br>
+
+<h4>✈️ <https://colorado.rstudio.com/rsc/fleet_lookup/></h4>
+:::
+:::
+
+## What can you do now?
+
+::: panel-tabset
+## ModelOps with vetiver
+
+[`vetiver`](vetiver.rstudio.com) simplifies model deployment, cleverly wrapping your model as either a FastAPI or plumber API and pinning it to Connect (or Docker). Easily version your model, monitor metrics, and provide context and documentation with model cards.
+
+![see <https://vetiver.rstudio.com>](https://vetiver.rstudio.com/images/ml_ops_cycle.png){height="500"}
+
+## Integrate with Tableau Analytics Extensions
+
+[`plumbertableau`](https://rstudio.github.io/plumbertableau/) and [`fastapitableau`](https://rstudio.github.io/fastapitableau/) wrap your models or analytics in a Tableau-friendly API format to integrate with the Tableau Analytics Extension.
+
+![see examples at <https://github.com/sol-eng/tableau-examples/>](https://github.com/sol-eng/tableau-examples/raw/main/img/superstore-workbook.png){height="500px\""}
+
+## Parallel Execution
+
+Execute multiple concurrent requests more efficiently within your plumber APIs using `promises` and `future`
+
+![see <https://www.rstudio.com/blog/plumber-v1-1-0/>](https://rstudio.github.io/promises/articles/future_promise/blocked_future_promise.png){height="500px"}
+:::
+
+## Calling an API in your data science work
+
+- You can call an API from any system that can formulate a REST-based API request
+
+- In R, use `httr` 
+
+```{r}
+#| eval: false
+library()
+response <- GET(query_url) %>% 
+   content(as = "text") %>% jsonlite::fromJSON()
+
+```
+
+- In Python, use `requests`
+```{python}
+#| eval: false
+import requests
+response = requests.get(query_url)
+```
+
+<br>
+
+More detailed examples at <https://solutions.rstudio.com/r/rest-apis/clients/>
+
+## Resources
+
+* Plumber cheatsheet: <https://rstudio.com/resources/cheatsheets> 
+
+* See the `plumber` package website: <https://www.rplumber.io/>. You’ll find installation instructions along with related projects and contextual information
+
+* `plumber` v 1.1.0 included a number of new features, including better support for async calls and new serializers. See <https://www.rstudio.com/blog/plumber-v1-1-0/>
+
+* An excellent webinar covering the Plumber package: <https://rstudio.com/resources/webinars/expanding-r-horizons-integrating-r-with-plumber-apis/>
+
+* If you want to feel inspired, see James Blair's "Democratizing R with Plumber APIs" where he takes an existing Shiny application that uses an R model and turns the model into an API so it can be used by other applications: <https://rstudio.com/resources/rstudioconf-2019/democratizing-r-with-plumber-apis/>  
+
+* See Barrett Schloerke's talk "plumber + future: Async Web APIs" from  rstudio::global 2021 for asynchronous calls to APIs: <https://www.rstudio.com/resources/rstudioglobal-2021/plumber-and-future-async-web-apis/>
+
+* If you’re interested in how Plumber specifically works with RStudio Connect you can find documentation here: <https://docs.rstudio.com/how-to-guides/rsc/publish-plumberapi/>
+
+## Thank you! {.center .bigger}
+

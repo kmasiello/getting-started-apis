@@ -1,0 +1,141 @@
+// Include theme-specific fonts
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400');
+@import url('https://fonts.googleapis.com/css2?family=Economica&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital@0;1&display=swap');
+
+// Colors
+$darkblue: #19294D;
+$darkyellow: #FCA311;
+$silver: #F6F6F6;
+$lightblue: #A6CFD5;
+$altred: #A33B20;
+$darkgreen: #5B6C5D;
+
+
+/*-- scss:defaults --*/
+// Override theme settings (see ../template/settings.scss)
+// Base settings for all themes that can optionally be
+// overridden by the super-theme
+
+// Background of the presentation
+$backgroundColor: $silver;
+
+// Primary/body text
+$mainFont: 'Jost', sans-serif;
+$mainFontSize: 40px;
+$mainColor: #333;
+
+// Footer deets
+.reveal .slide-number a {
+    font-family: 'Barlow Condensed', sans-serif;
+}
+
+.reveal .footer p {
+    font-family: 'Barlow Condensed', sans-serif;
+}
+
+// Code 
+$codeFont: monospace;
+$code-color: $altred;
+
+
+// Vertical spacing between blocks of text
+$blockMargin: 20px;
+
+// Give a lil more space after the Slide Heading
+$headingMargin: 0 0 50px 0;
+
+// Headings
+$headingMargin: 0 0 $blockMargin 0;
+$headingFont: 'Lora', serif;
+$headingColor: $darkblue;
+$headingLineHeight: 1.2;
+$headingLetterSpacing: normal;
+$headingTextTransform: none;
+$headingTextShadow: none;
+$headingFontWeight: normal;
+$heading1TextShadow: $headingTextShadow;
+
+$heading1Size: 3.00em;
+$heading2Size: 2.11em;
+$heading3Size: 1.55em;
+$heading4Size: 1.20em;
+
+
+
+// Links and actions
+$linkColor: $darkyellow;
+$linkColorHover: darken( $linkColor, 20% );
+
+// Controls Footer Colors
+$link-color: $darkgreen;
+
+
+
+// Text selection
+$selectionBackgroundColor: $lightblue;
+$selectionColor: #fff;
+
+// Custom Region
+.darkblue {color: $darkblue;}
+.darkyellow {color: $darkyellow;}
+.silver {color: $silver;}
+.lightblue {color: $lightblue;}
+.altred {color: $altred;}
+.darkgreen {color: $darkgreen;}
+
+.smaller{font-size:smaller}
+
+.medium{font-size:medium}
+
+.bigger{font-size:150%;}
+
+.biggest{font-size:250%;}
+
+// special slide layouts
+.left-column-impact {
+  color: #777;
+  width: 20%;
+  height: 92%;
+  float: left;
+  vertical-align: middle;
+  transform: translateY(25%);
+}
+
+.right-column-impact {
+  width: 70%;
+  height: 92%;
+  float: right;
+  vertical-align: middle;
+}
+
+h6 {
+  font-weight: normal;
+  font-size: 275px;
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 100%;
+
+}
+
+h7 {
+  font-size: 78px;
+  line-height: 92%;
+  margin-top: 0;
+  font-family: $headingFont;
+}
+
+
+.longest_code_block {
+height: 800px;
+
+}
+
+
+.longer_code_block {
+height: 625px;
+
+}
+
