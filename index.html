@@ -411,7 +411,26 @@ Katie Masiello, Solutions Engineer at
 <svg aria-hidden="true" role="img" viewbox="0 0 496 512" style="height:1em;width:0.97em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg><a href="https://github.com/kmasiello/getting-started-apis">github.com/kmasiello/getting-started-apis</a>
 </h3>
 <p><img data-src="images/plumber.png" class="absolute" style="top: 525px; left: 1400px; width: 500px; "></p>
-</section><section id="what-is-an-api" class="slide level2"><h2>What is an API?</h2>
+<aside class="notes"><p>This talk is personal, it’s for me 4 years ago.</p>
+<ul>
+<li>working in propulsion safety and risk analysis group</li>
+<li>download CSV data from ACTS database - fleet info, line number, delivery date, engine type</li>
+<li>grated on me to manually download and read in data. I wanted it all to be programmatic and streamlined, like those commercials</li>
+<li>read about APIs but couldn’t figure it out. Google didn’t help.</li>
+<li>ran into plumber and got even more confused. I didn’t know if I was supposed to use plumber to call the database or which end was up.</li>
+<li>Now it’s 4 years later, I’m in a different place in my career working as a solutions engineer at RStudio</li>
+<li>I hope today I can untangle and clarify APIs for anyone who is in this same place that I was</li>
+</ul><style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="what-is-an-api" class="slide level2"><h2>What is an API?</h2>
 <p>Wikipedia says:</p>
 <blockquote>
 <p>An application programming interface (API) is a way for two or more computer programs to communicate with each other.</p>
@@ -432,6 +451,21 @@ Katie Masiello, Solutions Engineer at
 <blockquote>
 <p>If you can write a function, you can write an API.</p>
 </blockquote>
+<aside class="notes"><p>What you may have heard before, right? It’s how machines talk to one another. You’re using an API just to call up a website like cnn. 🔽</p>
+<p>in my mind you write a function to do something.<br>
+an API becomes a way to access that. 🔽</p>
+<p>and if you can write a function, you can create an api.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
 </section><section id="systems-as-black-boxes" class="slide level2"><h2>Systems as Black Boxes</h2>
 
@@ -459,6 +493,23 @@ Katie Masiello, Solutions Engineer at
 </div>
 </div>
 </div>
+<aside class="notes"><p>Let’s talk systems analysis.<br>
+We’ve got two black boxes here, each representing some kind of system. and we need to communicate between them. In the example I mentioned earlier, I was working in R and i wanted data from another system. What I wanted was to request this data programmatically and have it sent to me.</p>
+<p>Let’s think about what’s inside. What do we have here? 🔽</p>
+<p>In this illustration, I might be working in Python or R. Maybe it’s an excel workbook or tableau dashboard for example.</p>
+<p>What do I need to connect with? It could be anything. 🔽</p>
+<p>Javascript? R, python? I joek around but it could be something written in BASIC or Scratch. We likely don’t even KNOW what the other system is. But does it matter? 🔽</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
 </section><section id="systems-as-black-boxes-1" class="slide level2"><h2>Systems as Black Boxes</h2>
 
@@ -477,10 +528,33 @@ Katie Masiello, Solutions Engineer at
 </h2>
 </div>
 </div>
-</section><section id="systems-as-black-boxes-2" class="slide level2"><h2>Systems as Black Boxes</h2>
+<aside class="notes"><p>No.&nbsp;🔽 Here’s the important thing. It does not matter what’s INSIDE the boxes as long as we can standardize on a means to communicate between the boxes.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="systems-as-black-boxes-2" class="slide level2"><h2>Systems as Black Boxes</h2>
 
 <img data-src="images/restful.png" alt="Two black box systems. The left system asks for data, the right system responds with data." class="r-stretch quarto-figure-center"><p>If the other system’s external interfaces are exposed as “API endpoints,” and if my system can formulate a REST-based API call, we can communicate.</p>
-</section><section id="lets-see-it-in-action" class="slide level2"><h2>Let’s See it in Action 🌧️</h2>
+<aside class="notes"><p>This is the beauty of APIs. Formally we call these REST-based APIs because they follow a defined standard called REST. The way these RESTful APIs communicate is via HTTP which is why people talk about using API calls when you browse the web.</p>
+<p>In essence, as long as the system you are using can formulate a REST-based API call, and the receiving end is exposing its interfaces as what are called API endpoints, we can communicate.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="lets-see-it-in-action" class="slide level2"><h2>Let’s See it in Action 🌧️</h2>
 <p>How’s the weather at Paine Field?</p>
 <p><a href="https://api.open-meteo.com/v1/forecast?latitude=47.9&amp;longitude=-122.3&amp;hourly=temperature_2m,rain,windspeed_10m&amp;temperature_unit=fahrenheit&amp;windspeed_unit=mph&amp;precipitation_unit=inch&amp;timezone=America%2FLos_Angeles">https://api.open-meteo.com/v1/forecast?latitude=47.9&amp;longitude=-122.3&amp;hourly=temperature_2m, rain,windspeed_10m&amp;temperature_unit=fahrenheit&amp;windspeed_unit=mph&amp;precipitation_unit=inch&amp; timezone=America%2FLos_Angeles</a></p>
 <div class="cell" data-hash="index_cache/revealjs/unnamed-chunk-1_dce2863955527a001e7423562bee386c">
@@ -626,7 +700,19 @@ $hourly$windspeed_10m
 [163] 6.7 7.3 8.0 8.2 8.4 8.4</code></pre>
 </div>
 </div>
-</section><section id="think-of-apis-as-a-way-to-access-functions" class="slide level2"><h2>Think of APIs as a way to access functions</h2>
+<aside class="notes"><p>Let’s see an API call. This is a weather API. It’s free and publicly available. If I click on it, or drop it in the chat window for you to click on, you’ll see the output in the browser.</p>
+<p>It’s a bit messy but it’s readable. Or here is a code snippet for how I’d use this in R. I’ll use the <code>httr</code> package to formulate the API request and receive a response.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="think-of-apis-as-a-way-to-access-functions" class="slide level2"><h2>Think of APIs as a way to access functions</h2>
 <p>General form of an API:</p>
 <pre><code>http://hostname/api_endpoint/?parameter=value</code></pre>
 <p>Example function:</p>
@@ -637,7 +723,21 @@ $hourly$windspeed_10m
 </div>
 <p>As an API:</p>
 <pre><code>http://hostname/my_function/?argument=value</code></pre>
-</section><section id="parts-of-an-api" class="slide level2"><h2>Parts of an API</h2>
+<aside class="notes"><p>I want to reiterate this concept of APIs as a way to access a function.</p>
+<p>In general, api takes this form.</p>
+<p>Here’s a function.</p>
+<p>Here’s the function as an analogous API.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="parts-of-an-api" class="slide level2"><h2>Parts of an API</h2>
 <ul>
 <li>
 <strong>Host:</strong>
@@ -672,7 +772,18 @@ $hourly$windspeed_10m
 </ul>
 <p>The weather API:</p>
 <p><span style="background-color:#f7f896"><code>https://api.open-meteo.com/</code></span><span style="background-color:#9ef8f8"><code>v1/forecast</code></span><span style="background-color:#f9ca9a"><code>?latitude=47.9&amp;longitude=-122.3&amp; hourly=temperature_2m,rain,windspeed_10m&amp;temperature_unit=fahrenheit&amp; windspeed_unit=mph&amp;precipitation_unit=inch&amp;timezone=America%2FLos_Angeles</code></span></p>
-</section><section id="api-requests" class="slide level2"><h2>API Requests</h2>
+<aside class="notes"><p>Let’s talk a little vocabulary. Host Endpoint Parameters etc.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="api-requests" class="slide level2"><h2>API Requests</h2>
 <ul>
 <li><p>Each API endpoint has a different <strong>method</strong></p></li>
 <li>
@@ -699,7 +810,21 @@ $hourly$windspeed_10m
 <li>and more</li>
 </ul>
 </li>
-</ul></section><section id="api-reponses" class="slide level2"><h2>API Reponses</h2>
+</ul>
+<aside class="notes"><p>So we’ve seen the general form of an API. Let’s talk about the types of requests we can make.</p>
+<p>Each endpoint has a <strong>method</strong> for how to interact with it. These methods describe the types of action the request does.</p>
+<p>As you’re getting started, GET and POST will cover you.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="api-reponses" class="slide level2"><h2>API Reponses</h2>
 <ul>
 <li>
 <p>Default response from an API is JSON object</p>
@@ -718,7 +843,21 @@ $hourly$windspeed_10m
 <li>and more</li>
 </ul>
 </li>
-</ul></section><section id="why-should-you-build-an-api" class="slide level2"><h2>Why Should <span class="darkyellow"><em>You</em></span> Build an API?</h2>
+</ul>
+<aside class="notes"><p>And once we’ve made our request, an API response can take multiple forms.</p>
+<p>The default is JSON.</p>
+<p>Most frameworks support additional response types. In Plumber these are called the serializer. It’s how the data gets serialized in response.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="why-should-you-build-an-api" class="slide level2"><h2>Why Should <span class="darkyellow"><em>You</em></span> Build an API?</h2>
 <p><span class="altred">What’s in your data science toolbox right now?</span></p>
 <ul>
 <li><p>Reports</p></li>
@@ -728,7 +867,23 @@ $hourly$windspeed_10m
 </ul>
 <p><span class="fragment"><em>all these tools are limited to <strong>end user consumption</strong></em></span></p>
 <p><span class="fragment"><br> 😄 “I can enable an analytics pipeline with APIs.”</span></p>
-</section><section id="why-should-you-build-an-api-1" class="slide level2"><h2>Why Should <span class="darkyellow"><em>You</em></span> Build an API?</h2>
+<aside class="notes"><p>Now we’ve got a feel for what an API is. When can it be useful?</p>
+<p>First I want you to consider what you’ve got in your toolbox right now.</p>
+<p>if we look at the traditional data science toolbox it may include any number of these traditional things.</p>
+<p>🔽 but they’re all limited to end user consumption.<br>
+they require some kind of user interaction.</p>
+<p>🔽 an API permits you to eliminate the human interaction.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="why-should-you-build-an-api-1" class="slide level2"><h2>Why Should <span class="darkyellow"><em>You</em></span> Build an API?</h2>
 <p><span class="altred">Common pain points</span></p>
 <ul>
 <li><p>“I’ve created a Shiny beast!”</p></li>
@@ -736,10 +891,22 @@ $hourly$windspeed_10m
 <li><p>“How do we share this code with another system / group?”</p></li>
 <li><p>“Your model is great, we’re going to hand it over to this other team to rebuild it in JavaScript.” 😭</p></li>
 </ul>
-<p><span class="fragment"><br> 😄 “If I pull my model out of my Shiny app, I can make my app lighter weight and have more flexibility around model management.”</span></p>
-<p><span class="fragment"><br> 😄 “Our team can now standarize our processes for working with data.”</span></p>
-<p><span class="fragment"><br> 😄 “I will expose my analytics as an API so anyone can use it.”</span></p>
-</section><section id="okay-but-how" class="slide level2"><h2>Okay, but how?</h2>
+<aside class="notes"><p>That’s cool. but what about these situations. these are some of the pain points I commonly hear that lead to good discussions around using APIs.</p>
+<p>Sometimes you build out a solution but the solution itself becomes the problem in that it’s either difficult to maintain or update, or supporting it in production is unwieldy.</p>
+<p>or you find you’re replicating work like what I was doing with my manual csv download and running it through the same data cleaning script.</p>
+<p>Or you need to share your code with another group or system.</p>
+<p>Or worse, I die a little inside when I hear this. A team says they have a great model but they handed it over to another team and they are rebuilding it in another language.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="okay-but-how" class="slide level2"><h2>Okay, but how?</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h4 id="api-frameworks">API frameworks</h4>
@@ -825,7 +992,20 @@ $hourly$windspeed_10m
 </div>
 </div>
 </div>
-</section><section id="sneak-peek-the-finished-api" class="slide level2"><h2>Sneak Peek: The Finished API</h2>
+<aside class="notes"><p>I’m going to run you through a simple example to get your feet wet. Then we’ll look at two additional examples.</p>
+<p>we’ll begin with a coin toss. we can consider this a really simple model. I have two functions.</p>
+<p>🔽 we’ve done step one. now we get to decorate.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="sneak-peek-the-finished-api" class="slide level2"><h2>Sneak Peek: The Finished API</h2>
 <p>Notice special plumber comments (decorations) with <code>#*</code></p>
 <div class="cell longer_code_block" data-hash="index_cache/revealjs/unnamed-chunk-5_9c629d68f5326b1e7bc5e8cec6f437f6">
 <div class="sourceCode cell-code" id="cb10" data-code-line-numbers="|1,3,5-6,13-15"><pre class="sourceCode numberSource r longer_code_block number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">library</span>(plumber)</span>
@@ -850,10 +1030,21 @@ $hourly$windspeed_10m
 <span id="cb10-20"><a href="#cb10-20"></a>                 <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="at">replace =</span> <span class="cn">TRUE</span>)))</span>
 <span id="cb10-21"><a href="#cb10-21"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="make-an-api-add-a-title" class="slide level2"><h2>Make an API — Add a Title</h2>
+<aside class="notes"><p>This is the complete API. I want you to see this to see first, it fits on one page. And second, notice how little changed from what I had before. I still have my functions. I just added 🔽 these 7 lines to transform this into an API.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="make-an-api-add-a-title" class="slide level2"><h2>Make an API — Add a Title</h2>
 <p><strong>Noted with <code>@apiTitle</code></strong></p>
-<div class="cell longer_code_block" data-hash="index_cache/revealjs/unnamed-chunk-6_8256595bacee7b806d11fa48db4ab474">
-<div class="sourceCode cell-code" id="cb11" data-code-line-numbers="3"><pre class="sourceCode numberSource r longer_code_block number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">library</span>(plumber)</span>
+<div class="cell longer_code_block" data-hash="index_cache/revealjs/unnamed-chunk-6_c3901c8f59c5cd24cbc3cd1beec29954">
+<div class="sourceCode cell-code" id="cb11" data-code-line-numbers="1,3"><pre class="sourceCode numberSource r longer_code_block number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">library</span>(plumber)</span>
 <span id="cb11-2"><a href="#cb11-2"></a></span>
 <span id="cb11-3"><a href="#cb11-3"></a><span class="co">#* @apiTitle Coin Toss API</span></span>
 <span id="cb11-4"><a href="#cb11-4"></a></span>
@@ -979,7 +1170,18 @@ $hourly$windspeed_10m
 </div>
 </div>
 </div>
-</section><section id="publish-the-api" class="slide level2"><h2>Publish the API</h2>
+<aside class="notes"><p>Let’s detour. The Swagger interface in the RStudio IDE and on RStudio Connect permits you to interact with the API. I’ll run this locally and show this.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="publish-the-api" class="slide level2"><h2>Publish the API</h2>
 <p>Deploy to RStudio Connect <a href="https://solutions.rstudio.com/data-science-admin/deploy/">using your preferred method</a> (push button deployment, git-backed deployment, or programmatic).</p>
 <div style="text-align: center;">
 <p><a href="https://colorado.rstudio.com/rsc/coin_api/" class="uri"><strong>https://colorado.rstudio.com/rsc/coin_api/</strong></a></p>
@@ -1061,8 +1263,7 @@ $hourly$windspeed_10m
 <p>Use case: Your data visualization would be valuable to import into multiple reports.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell longest_code_block columns column-output-location" data-hash="index_cache/revealjs/unnamed-chunk-12_3ad9abc4a614a16251cf7c38640325c0">
-<div class="column">
+<div class="cell longest_code_block" data-hash="index_cache/revealjs/unnamed-chunk-12_0533c285156a7ebfa92264016c4db023">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r longest_code_block number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">library</span>(nycflights13)</span>
 <span id="cb17-2"><a href="#cb17-2"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb17-3"><a href="#cb17-3"></a><span class="fu">library</span>(ggplot2)</span>
@@ -1082,9 +1283,6 @@ $hourly$windspeed_10m
 <span id="cb17-17"><a href="#cb17-17"></a>}</span>
 <span id="cb17-18"><a href="#cb17-18"></a></span>
 <span id="cb17-19"><a href="#cb17-19"></a><span class="fu">fleet_plot</span>(<span class="st">"UA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column">
-
-</div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell longer_code_block" data-hash="index_cache/revealjs/unnamed-chunk-13_5a50754a204fb6014a0d4f3b530968dd">
@@ -1098,37 +1296,50 @@ $hourly$windspeed_10m
 </div>
 </div>
 </div>
-</section><section id="make-an-api" class="slide level2"><h2>Make an API</h2>
-<div class="cell longest_code_block" data-hash="index_cache/revealjs/unnamed-chunk-14_94e24d7e52415a51e709f2135693b2bf">
-<div class="sourceCode cell-code" id="cb18" data-code-line-numbers="|1|7|28-33|42-45"><pre class="sourceCode numberSource r longest_code_block number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">library</span>(plumber)</span>
+<aside class="notes"><p>Two additional examples here. What I want to show is one use case where I’ve got a common data munging and summarization that I’m frequently doing. I have a function where I pull some fleet data, transform and clean it, and summarize it. I’m just pulling data from the <code>nycflights13</code> package so clearly not a complete dataset, but it works for illustration. If I input UA, I get a table of the model aircraft arriving and departing NYC airports from the year 2013.</p>
+<p>➡️ A second function takes this same concept, but in this case, my function returns a nice interactive plot of my fleet data. In this case, i would be great if I could make this plot readily accessible to other reports in other systems.</p>
+<p>So how are we going to do this? Let’s walk through it.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="make-an-api" class="slide level2"><h2>Make an API</h2>
+<div class="cell longest_code_block" data-hash="index_cache/revealjs/unnamed-chunk-14_b07454ec207d502f5ff8b7ded6e0d8ba">
+<div class="sourceCode cell-code" id="cb18" data-code-line-numbers="|1|7-8|10|31-33|42-45"><pre class="sourceCode numberSource r longest_code_block number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">library</span>(plumber)</span>
 <span id="cb18-2"><a href="#cb18-2"></a><span class="fu">library</span>(nycflights13)</span>
 <span id="cb18-3"><a href="#cb18-3"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb18-4"><a href="#cb18-4"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb18-5"><a href="#cb18-5"></a><span class="fu">library</span>(ggiraph)</span>
 <span id="cb18-6"><a href="#cb18-6"></a></span>
-<span id="cb18-7"><a href="#cb18-7"></a><span class="co"># Look 👀, I can keep my original function definition as is and I'll just call it below when defining the endpoint.</span></span>
-<span id="cb18-8"><a href="#cb18-8"></a>fleet_lookup <span class="ot">&lt;-</span> <span class="cf">function</span>(carrier){</span>
-<span id="cb18-9"><a href="#cb18-9"></a>    </span>
-<span id="cb18-10"><a href="#cb18-10"></a>    carrier_tbl <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span></span>
-<span id="cb18-11"><a href="#cb18-11"></a>        <span class="fu">select</span>(carrier, tailnum) <span class="sc">%&gt;%</span></span>
-<span id="cb18-12"><a href="#cb18-12"></a>        <span class="fu">distinct</span>()</span>
-<span id="cb18-13"><a href="#cb18-13"></a>    </span>
-<span id="cb18-14"><a href="#cb18-14"></a>    planes <span class="sc">%&gt;%</span></span>
-<span id="cb18-15"><a href="#cb18-15"></a>        <span class="fu">mutate</span>(<span class="at">manufacturer=</span><span class="fu">recode</span>(manufacturer, <span class="st">"AIRBUS INDUSTRIE"</span><span class="ot">=</span><span class="st">"AIRBUS"</span>,</span>
-<span id="cb18-16"><a href="#cb18-16"></a>                                   <span class="st">"MCDONNELL DOUGLAS CORPORATION"</span> <span class="ot">=</span> <span class="st">"MCDONNELL DOUGLAS"</span>,</span>
-<span id="cb18-17"><a href="#cb18-17"></a>                                   <span class="st">"MCDONNELL DOUGLAS AIRCRAFT CO"</span> <span class="ot">=</span> <span class="st">"MCDONNELL DOUGLAS"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb18-18"><a href="#cb18-18"></a>        <span class="fu">filter</span>(engine <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Turbo-jet"</span>, <span class="st">"Turbo-fan"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb18-19"><a href="#cb18-19"></a>        <span class="fu">left_join</span>(carrier_tbl) <span class="sc">%&gt;%</span></span>
-<span id="cb18-20"><a href="#cb18-20"></a>        <span class="fu">distinct</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb18-21"><a href="#cb18-21"></a>        <span class="fu">filter</span>( carrier <span class="sc">==</span> {{ carrier }}) <span class="sc">%&gt;%</span></span>
-<span id="cb18-22"><a href="#cb18-22"></a>        <span class="fu">group_by</span>(manufacturer, model) <span class="sc">%&gt;%</span></span>
-<span id="cb18-23"><a href="#cb18-23"></a>        <span class="fu">tally</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb18-24"><a href="#cb18-24"></a>        <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
-<span id="cb18-25"><a href="#cb18-25"></a>    </span>
-<span id="cb18-26"><a href="#cb18-26"></a>}</span>
-<span id="cb18-27"><a href="#cb18-27"></a></span>
-<span id="cb18-28"><a href="#cb18-28"></a><span class="co">#* @apiTitle Fleet Lookup</span></span>
-<span id="cb18-29"><a href="#cb18-29"></a><span class="co">#* @apiDescription Plumber example looking up fleet data from `nycflights13`</span></span>
+<span id="cb18-7"><a href="#cb18-7"></a><span class="co">#* @apiTitle Fleet Lookup</span></span>
+<span id="cb18-8"><a href="#cb18-8"></a><span class="co">#* @apiDescription Plumber example looking up fleet data from `nycflights13`</span></span>
+<span id="cb18-9"><a href="#cb18-9"></a></span>
+<span id="cb18-10"><a href="#cb18-10"></a><span class="co"># Look 👀, I can keep my original function definition as is and I'll just call it below when defining the endpoint.</span></span>
+<span id="cb18-11"><a href="#cb18-11"></a>fleet_lookup <span class="ot">&lt;-</span> <span class="cf">function</span>(carrier){</span>
+<span id="cb18-12"><a href="#cb18-12"></a>    </span>
+<span id="cb18-13"><a href="#cb18-13"></a>    carrier_tbl <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span></span>
+<span id="cb18-14"><a href="#cb18-14"></a>        <span class="fu">select</span>(carrier, tailnum) <span class="sc">%&gt;%</span></span>
+<span id="cb18-15"><a href="#cb18-15"></a>        <span class="fu">distinct</span>()</span>
+<span id="cb18-16"><a href="#cb18-16"></a>    </span>
+<span id="cb18-17"><a href="#cb18-17"></a>    planes <span class="sc">%&gt;%</span></span>
+<span id="cb18-18"><a href="#cb18-18"></a>        <span class="fu">mutate</span>(<span class="at">manufacturer=</span><span class="fu">recode</span>(manufacturer, <span class="st">"AIRBUS INDUSTRIE"</span><span class="ot">=</span><span class="st">"AIRBUS"</span>,</span>
+<span id="cb18-19"><a href="#cb18-19"></a>                                   <span class="st">"MCDONNELL DOUGLAS CORPORATION"</span> <span class="ot">=</span> <span class="st">"MCDONNELL DOUGLAS"</span>,</span>
+<span id="cb18-20"><a href="#cb18-20"></a>                                   <span class="st">"MCDONNELL DOUGLAS AIRCRAFT CO"</span> <span class="ot">=</span> <span class="st">"MCDONNELL DOUGLAS"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-21"><a href="#cb18-21"></a>        <span class="fu">filter</span>(engine <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Turbo-jet"</span>, <span class="st">"Turbo-fan"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-22"><a href="#cb18-22"></a>        <span class="fu">left_join</span>(carrier_tbl) <span class="sc">%&gt;%</span></span>
+<span id="cb18-23"><a href="#cb18-23"></a>        <span class="fu">distinct</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb18-24"><a href="#cb18-24"></a>        <span class="fu">filter</span>( carrier <span class="sc">==</span> {{ carrier }}) <span class="sc">%&gt;%</span></span>
+<span id="cb18-25"><a href="#cb18-25"></a>        <span class="fu">group_by</span>(manufacturer, model) <span class="sc">%&gt;%</span></span>
+<span id="cb18-26"><a href="#cb18-26"></a>        <span class="fu">tally</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb18-27"><a href="#cb18-27"></a>        <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb18-28"><a href="#cb18-28"></a>    </span>
+<span id="cb18-29"><a href="#cb18-29"></a>}</span>
 <span id="cb18-30"><a href="#cb18-30"></a></span>
 <span id="cb18-31"><a href="#cb18-31"></a><span class="co">#* Look up fleet data from the `nycflights13` dataset</span></span>
 <span id="cb18-32"><a href="#cb18-32"></a><span class="co">#* @param carrier two-letter carrier code</span></span>

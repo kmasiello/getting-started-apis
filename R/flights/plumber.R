@@ -4,6 +4,9 @@ library(dplyr)
 library(ggplot2)
 library(ggiraph)
 
+#* @apiTitle Fleet Lookup
+#* @apiDescription Plumber example looking up fleet data from `nycflights13`
+
 # Define the function (note we can do this outside of the endpoint definition)
 fleet_lookup <- function(carrier){
     
@@ -25,8 +28,6 @@ fleet_lookup <- function(carrier){
     
 }
 
-#* @apiTitle Fleet Lookup
-#* @apiDescription Plumber example looking up fleet data from `nycflights13`
 
 #* Look up fleet data from the `nycflights13` dataset
 #* @param carrier two-letter carrier code

@@ -42,6 +42,19 @@ execute:
 
 ![](images/plumber.png){.absolute top="525" left="1400" width="500"}
 
+::: {.notes}
+This talk is personal, it's for me 4 years ago.
+
+- working in propulsion safety and risk analysis group
+- download CSV data from ACTS database - fleet info, line number, delivery date, engine type
+- grated on me to manually download and read in data. I wanted it all to be programmatic and streamlined, like those commercials
+- read about APIs but couldn't figure it out.  Google didn't help. 
+- ran into plumber and got even more confused. I didn't know if I was supposed to use plumber to call the database or which end was up.
+- Now it's 4 years later, I'm in a different place in my career working as a solutions engineer at RStudio
+- I hope today I can untangle and clarify APIs for anyone who is in this same place that I was
+
+:::
+
 ## What is an API?
 
 Wikipedia says:
@@ -67,6 +80,16 @@ Katie says:
 Katie's corollary:
 
 > If you can write a function, you can write an API.
+
+::: {.notes}
+What you may have heard before, right? It's how machines talk to one another.  You're using an API just to call up a website like cnn.  🔽
+
+in my mind you write a function to do something.  
+an API becomes a way to access that. 🔽
+
+and if you can write a function, you can create an api.
+
+:::
 
 ## Systems as Black Boxes
 
@@ -98,6 +121,20 @@ Katie's corollary:
 :::
 :::
 
+::: {.notes}
+Let's talk systems analysis.  
+We've got two black boxes here, each representing some kind of system. and we need to communicate between them.  In the example I mentioned earlier, I was working in R and i wanted data from another system. What I wanted was to request this data programmatically and have it sent to me.
+
+Let's think about what's inside.  What do we have here?  🔽
+
+In this illustration, I might be working in Python or R. Maybe it's an excel workbook or tableau dashboard for example. 
+
+What do I need to connect with? It could be anything. 🔽
+
+Javascript? R, python? I joek around but it could be something written in BASIC or Scratch.  We likely don't even KNOW what the other system is.  But does it matter? 
+🔽
+:::
+
 ## Systems as Black Boxes
 
 ![](images/black_boxes.png){fig-alt="Two black box systems. The left system asks for data, the right system responds with data." fig-align="center"}
@@ -120,11 +157,25 @@ Katie's corollary:
 :::
 :::
 
+::: {.notes}
+
+No. 🔽
+Here's the important thing. It does not matter what's INSIDE the boxes as long as we can standardize on a means to communicate between the boxes.
+
+:::
+
 ## Systems as Black Boxes
 
 ![](images/restful.png){fig-alt="Two black box systems. The left system asks for data, the right system responds with data." fig-align="center"}
 
 If the other system's external interfaces are exposed as "API endpoints," and if my system can formulate a REST-based API call, we can communicate. 
+
+::: {.notes}
+This is the beauty of APIs. Formally we call these REST-based APIs because they follow a defined standard called REST.  The way these RESTful APIs communicate is via HTTP which is why people talk about using API calls when you browse the web. 
+
+
+In essence, as long as the system you are using can formulate a REST-based API call, and the receiving end is exposing its interfaces as what are called API endpoints, we can communicate.
+:::
 
 ## Let's See it in Action 🌧️
 
@@ -138,6 +189,14 @@ httr::GET("https://api.open-meteo.com/v1/forecast?latitude=47.9&longitude=-122.3
   content(as = "text") |> 
   jsonlite::fromJSON()
 ```
+
+
+::: {.notes}
+Let's see an API call.  This is a weather API. It's free and publicly available.  If I click on it, or drop it in the chat window for you to click on, you'll see the output in the browser. 
+
+It's a bit messy but it's readable.  Or here is a code snippet for how I'd use this in R.  I'll use the `httr` package to formulate the API request and receive a response. 
+
+:::
 
 ## Think of APIs as a way to access functions
 
@@ -157,6 +216,16 @@ As an API:
 
     http://hostname/my_function/?argument=value
 
+::: {.notes}
+I want to reiterate this concept of APIs as a way to access a function. 
+
+In general, api takes this form. 
+
+Here's a function.
+
+Here's the function as an analogous API. 
+:::
+
 ## Parts of an API
 
 -   **Host:**
@@ -173,6 +242,14 @@ As an API:
 The weather API:
 
 [`https://api.open-meteo.com/`]{style="background-color:#f7f896"}[`v1/forecast`]{style="background-color:#9ef8f8"}[`?latitude=47.9&longitude=-122.3& hourly=temperature_2m,rain,windspeed_10m&temperature_unit=fahrenheit& windspeed_unit=mph&precipitation_unit=inch&timezone=America%2FLos_Angeles`]{style="background-color:#f9ca9a"}
+
+::: {.notes}
+Let's talk a little vocabulary. 
+Host
+Endpoint
+Parameters
+etc.
+:::
 
 ## API Requests
 
@@ -196,6 +273,15 @@ The weather API:
     -   HEAD
     -   and more
 
+::: {.notes}
+So we've seen the general form of an API. Let's talk about the types of requests we can make.
+
+Each endpoint has a **method** for how to interact with it.  These methods describe the types of action the request does. 
+
+As you're getting started, GET and POST will cover you.  
+
+:::
+
 ## API Reponses
 
 -   Default response from an API is JSON object
@@ -210,6 +296,15 @@ The weather API:
     -   htmlwidgets
     -   specific file types (e.g., RDS, feather, parquet)
     -   and more
+
+::: {.notes}
+And once we've made our request, an API response can take multiple forms.
+
+The default is JSON. 
+
+Most frameworks support additional response types.  In Plumber these are called the serializer. It's how the data gets serialized in response. 
+
+:::
 
 ## Why Should [*You*]{.darkyellow} Build an API?
 
@@ -227,6 +322,22 @@ The weather API:
 
 [<br> 😄 "I can enable an analytics pipeline with APIs."]{.fragment}
 
+::: {.notes}
+Now we've got a feel for what an API is. When can it be useful?
+
+First I want you to consider what you've got in your toolbox right now. 
+
+if we look at the traditional data science toolbox it may include any number of these traditional things.
+
+🔽
+but they're all limited to end user consumption.  
+they require some kind of user interaction.  
+
+🔽
+an API permits you to eliminate the human interaction.
+
+:::
+
 ## Why Should [*You*]{.darkyellow} Build an API?
 
 [Common pain points]{.altred}
@@ -240,11 +351,22 @@ The weather API:
 * "Your model is great, we're going to hand it over to this other team to rebuild it in JavaScript." 😭
 
 
-[<br> 😄 "If I pull my model out of my Shiny app, I can make my app lighter weight and have more flexibility around model management."]{.fragment}
 
-[<br> 😄 "Our team can now standarize our processes for working with data."]{.fragment}
+::: {.notes}
+That's cool. but what about these situations.  these are some of the pain points I commonly hear that lead to good discussions around using APIs. 
 
-[<br> 😄 "I will expose my analytics as an API so anyone can use it."]{.fragment}
+Sometimes you build out a solution but the solution itself becomes the problem in that it's either difficult to maintain or update, or supporting it in production is unwieldy.
+
+or you find you're replicating work like what I was doing with my manual csv download and running it through the same data cleaning script. 
+
+Or you need to share your code with another group or system.
+
+Or worse, I die a little inside when I hear this. A team says they have a great model but they handed it over to another team and they are rebuilding it in another language.  
+
+
+
+
+:::
 
 ## Okay, but how?
 
@@ -357,6 +479,17 @@ multi_toss(500)
 :::
 :::
 
+::: {.notes}
+I'm going to run you through a simple example to get your feet wet. Then we'll look at two additional examples.
+
+we'll begin with a coin toss. we can consider this a really simple model. I have two functions. 
+
+🔽
+we've done step one. now we get to decorate. 
+
+
+:::
+
 ## Sneak Peek: The Finished API
 
 Notice special plumber comments (decorations) with `#*`
@@ -389,6 +522,11 @@ function(n) {
   }
 ```
 
+::: {.notes}
+This is the complete API. I want you to see this to see first, it fits on one page.  And second, notice how little changed from what I had before.  I still have my functions.  I just added 🔽 these 7 lines to transform this into an API. 
+
+:::
+
 ## Make an API --- Add a Title
 
 **Noted with `@apiTitle`**
@@ -397,7 +535,7 @@ function(n) {
 #| class-source: longer_code_block
 #| classes: longer_code_block
 #| eval: false
-#| code-line-numbers: "3"
+#| code-line-numbers: "1,3"
 library(plumber)
 
 #* @apiTitle Coin Toss API
@@ -537,6 +675,12 @@ function(n) {
 ![](images/swagger.gif){fig-align="center" height="800px"}
 :::
 
+
+::: {.notes}
+Let's detour. The Swagger interface in the RStudio IDE and on RStudio Connect permits you to interact with the API.
+I'll run this locally and show this. 
+
+:::
 ## Publish the API
 
 Deploy to RStudio Connect [using your preferred method](https://solutions.rstudio.com/data-science-admin/deploy/) (push button deployment, git-backed deployment, or programmatic).
@@ -642,7 +786,6 @@ Use case: Your data visualization would be valuable to import into multiple repo
 #| echo: true
 #| class-source: longest_code_block
 #| classes: longest_code_block
-#| output-location: column
 #| eval: false
 library(nycflights13)
 library(dplyr)
@@ -696,6 +839,16 @@ fleet_plot("UA")
 :::
 :::
 
+::: {.notes}
+Two additional examples here. What I want to show is one use case where I've got a common data munging and summarization that I'm frequently doing.  I have a function where I pull some fleet data, transform and clean it, and summarize it. I'm just pulling data from the `nycflights13` package so clearly not a complete dataset, but it works for illustration.  If I input UA, I get a table of the model aircraft arriving and departing NYC airports from the year 2013.
+
+➡️
+A second function takes this same concept, but in this case, my function returns a nice interactive plot of my fleet data. In this case, i would be great if I could make this plot readily accessible to other reports in other systems. 
+
+So how are we going to do this? Let's walk through it.
+
+:::
+
 ## Make an API
 
 ```{r}
@@ -703,12 +856,15 @@ fleet_plot("UA")
 #| eval: false
 #| classes: longest_code_block
 #| class-source: longest_code_block
-#| code-line-numbers: "|1|7|28-33|42-45"
+#| code-line-numbers: "|1|7-8|10|31-33|42-45"
 library(plumber)
 library(nycflights13)
 library(dplyr)
 library(ggplot2)
 library(ggiraph)
+
+#* @apiTitle Fleet Lookup
+#* @apiDescription Plumber example looking up fleet data from `nycflights13`
 
 # Look 👀, I can keep my original function definition as is and I'll just call it below when defining the endpoint.
 fleet_lookup <- function(carrier){
@@ -730,9 +886,6 @@ fleet_lookup <- function(carrier){
         arrange(desc(n))
     
 }
-
-#* @apiTitle Fleet Lookup
-#* @apiDescription Plumber example looking up fleet data from `nycflights13`
 
 #* Look up fleet data from the `nycflights13` dataset
 #* @param carrier two-letter carrier code
