@@ -9,7 +9,6 @@ format:
     footer: "[https://kmasiello.github.io/getting-started-apis](https://kmasiello.github.io/getting-started-apis)"
     code-copy: true
     center-title-slide: false
-    # include-in-header: heading-meta.html
     code-link: true
     code-overflow: wrap
     highlight-style: a11y
@@ -230,19 +229,22 @@ The weather API:
 
 ## Why Should [*You*]{.darkyellow} Build an API?
 
-[How do you make your analytics available to other projects/teams/people?]{.altred}
+[Common pain points]{.altred}
 
--   Make an R or Python package
+* "I've created a Shiny beast!"
 
--   Share your code
+* "We are replicating work in every project"
 
-[*this is fine a long as you're all using the **same language***]{.fragment}
+* "How do we share this code with another system / group?"
 
-[<br> 😭 "Your model is great, we're going to hand it over to this other team to rebuild it in JavaScript."]{.fragment}
+* "Your model is great, we're going to hand it over to this other team to rebuild it in JavaScript." 😭
+
+
+[<br> 😄 "If I pull my model out of my Shiny app, I can make my app lighter weight and have more flexibility around model management."]{.fragment}
+
+[<br> 😄 "Our team can now standarize our processes for working with data."]{.fragment}
 
 [<br> 😄 "I will expose my analytics as an API so anyone can use it."]{.fragment}
-
-[<br> 😄 "Bonus: If I pull my model out of my Shiny app, I can make my app lighter weight and have more flexibility around model management."]{.fragment}
 
 ## Okay, but how?
 
